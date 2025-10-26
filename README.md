@@ -1,0 +1,1 @@
+# Kenali-Potensi-find.out-quickly.
