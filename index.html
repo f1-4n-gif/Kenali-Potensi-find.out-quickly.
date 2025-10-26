@@ -172,7 +172,7 @@
                 <i data-lucide="brain-circuit" class="mr-3 w-8 h-8"></i>
                 KENALI POTENSI
             </h1>
-            <p class="text-sm opacity-90 mt-1">Tes Kemampuan, Tes Gaya Belajar dan Karir</p>
+            <p class="text-sm opacity-90 mt-1">Tes Kemampuan, Gaya Belajar dan Karir</p>
         </header>
 
         <!-- Bagian 1: Layar Input Data Diri --><section id="intro-screen" class="p-8">
@@ -525,17 +525,37 @@
                 } else if (q.type === 'MI') {
                     // Pilihan Ya/Tidak
                     const miCategory = q.category;
+
+                    // --- Variasi Jawaban (Baru) ---
+                    const yesOptions = [
+                        "Ya, deskripsi ini cocok dengan saya.",
+                        "Sangat setuju, ini saya sekali.",
+                        "Benar, saya seperti ini."
+                    ];
+                    const noOptions = [
+                        "Tidak, deskripsi ini kurang cocok.",
+                        "Kurang setuju, ini bukan saya.",
+                        "Tidak, saya tidak seperti ini."
+                    ];
+                    
+                    // Tentukan variasi berdasarkan nomor pertanyaan (index)
+                    // (index % 3) akan menghasilkan 0, 1, atau 2
+                    const variationIndex = (index) % yesOptions.length;
+                    const yesText = yesOptions[variationIndex];
+                    const noText = noOptions[variationIndex];
+                    // --- Akhir Variasi ---
+
                     optionsHtml = `
                         <div class="flex flex-col space-y-2">
                             <div class="flex items-center p-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-teal-100 dark:hover:bg-teal-900 transition duration-150 cursor-pointer has-[:checked]:bg-secondary has-[:checked]:text-white has-[:checked]:ring-2 has-[:checked]:ring-secondary/50">
                                 <input id="q${q.id}-yes" type="radio" name="q${q.id}" value="${miCategory}_1" class="peer hidden" required>
                                 <div class="w-4 h-4 mr-3 rounded-full border border-gray-300 dark:border-gray-500 peer-checked:bg-white peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-white"></div>
-                                <label for="${uniqueId}" class="ml-0 block text-sm font-medium w-full cursor-pointer">Ya, deskripsi ini cocok dengan saya.</label>
+                                <label for="q${q.id}-yes" class="ml-0 block text-sm font-medium w-full cursor-pointer">${yesText}</label>
                             </div>
                             <div class="flex items-center p-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-red-100 dark:hover:bg-red-900 transition duration-150 cursor-pointer has-[:checked]:bg-red-500 has-[:checked]:text-white has-[:checked]:ring-2 has-[:checked]:ring-red-500/50">
                                 <input id="q${q.id}-no" type="radio" name="q${q.id}" value="${miCategory}_0" class="peer hidden" required>
                                 <div class="w-4 h-4 mr-3 rounded-full border border-gray-300 dark:border-gray-500 peer-checked:bg-white peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-white"></div>
-                                <label for="${uniqueId}" class="ml-0 block text-sm font-medium w-full cursor-pointer">Tidak, deskripsi ini kurang cocok.</label>
+                                <label for="q${q.id}-no" class="ml-0 block text-sm font-medium w-full cursor-pointer">${noText}</label>
                             </div>
                         </div>
                     `;
@@ -855,5 +875,8 @@
     </script>
 </body>
 </html>
+
+
+
 
 
